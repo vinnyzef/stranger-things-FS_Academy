@@ -7,6 +7,7 @@ const PostList = () => {
   useEffect(async () => {
     const p = await getPosts();
     const posts = p.data.posts;
+    console.log(posts)
     setPosts(posts);
   }, []);
 
