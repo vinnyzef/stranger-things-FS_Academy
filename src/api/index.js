@@ -43,8 +43,6 @@ export const test = async () => {
     .then((response) => response.json())
     .then((result) => {
       console.log(result);
-
-      console.log(token);
     })
     .catch(console.error);
 };

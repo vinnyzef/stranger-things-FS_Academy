@@ -5,7 +5,14 @@ import SignUp from "./SignUp";
 const Login = (props) => {
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
-  const { loggedIn, setLoggedIn, token, setToken } = props;
+  const {
+    loggedIn,
+    setLoggedIn,
+    token,
+    setToken,
+    signInNeeded,
+    setNeedToSignIn,
+  } = props;
 
   const loginUser = (userObject) => {
     console.log(userObject);
@@ -23,9 +30,10 @@ const Login = (props) => {
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
-        console.log(result.success)
+        console.log(result.success);
         if (result.success === true) {
           setLoggedIn(true);
+          setNeedToSignIn(false)
         }
       })
       .catch(console.error);
@@ -39,6 +47,7 @@ const Login = (props) => {
         password: pass,
       },
     };
+    setToken(localStorage.getItem("token"));
     loginUser(temp);
     setUser("");
     setPass("");
@@ -62,14 +71,7 @@ const Login = (props) => {
       <button onClick={handleSubmit}>Enter</button>
       <button
         onClick={() => {
-          setSignInStatus(true);
-
-          <SignUp
-            loggedIn={loggedIn}
-            setLoggedIn={setLoggedIn}
-            token={token}
-            setToken={setToken}
-          />;
+          setNeedToSignIn(true);
         }}
       >
         {" "}

@@ -4,7 +4,14 @@ import { registerUser, test } from "./api";
 const SignUp = (props) => {
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
-  const { loggedIn, setLoggedIn, token, setToken } = props;
+  const {
+    loggedIn,
+    setLoggedIn,
+    token,
+    setToken,
+    setNeedToSignIn,
+    signInNeeded,
+  } = props;
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -19,7 +26,8 @@ const SignUp = (props) => {
     test();
     setToken(localStorage.getItem("token"));
     temp = {};
-
+    
+    setLoggedIn(true);
     setUser("");
     setPass("");
   };
