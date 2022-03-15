@@ -8,25 +8,6 @@ export const getPosts = async () => {
   console.log(json);
   return json;
 };
-export const loginUser = (userObject) => {
-  console.log(userObject);
-  fetch(
-    "https://strangers-things.herokuapp.com/api/2112-ftb-et-web-pt/users/login",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-
-      body: JSON.stringify(userObject),
-    }
-  )
-    .then((response) => response.json())
-    .then((result) => {
-      console.log(result);
-    })
-    .catch(console.error);
-};
 
 export const registerUser = async (userObject) => {
   const response = await fetch(
