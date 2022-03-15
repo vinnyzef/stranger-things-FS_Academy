@@ -23,7 +23,10 @@ const Login = (props) => {
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
-        setLoggedIn(true);
+        console.log(result.success)
+        if (result.success === true) {
+          setLoggedIn(true);
+        }
       })
       .catch(console.error);
   };
