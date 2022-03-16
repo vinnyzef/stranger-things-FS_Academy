@@ -4,14 +4,30 @@ import { registerUser, test } from "./api";
 const SignUp = (props) => {
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
-  const {
-    loggedIn,
-    setLoggedIn,
-    token,
-    setToken,
-    setNeedToSignIn,
-    signInNeeded,
-  } = props;
+  const { token, setToken, setNeedToSignIn, signInNeeded } = props;
+
+  //moved loginuser to here for fixing a scope issue on line 2 (setting state of token)
+  const registerUser = async (userObject) => {
+    const response = await fetch(
+      "https://strangers-things.herokuapp.com/api/2112-ftb-et-web-pt/users/register",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userObject),
+      }
+    )
+      .then((response) => response.json())
+      .then((result) => {
+        //sets local and token value to a valid token
+        localStorage.setItem("token", result.data.token);
+        setToken(localStorage.getItem("token"));
+        //makes sign in boolean falso to avoid rendering signup form again
+        setNeedToSignIn(false);
+      })
+      .catch(console.error);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -23,11 +39,9 @@ const SignUp = (props) => {
     };
 
     registerUser(temp);
-    test();
-    setToken(localStorage.getItem("token"));
+    //clears temp object for future inputs
     temp = {};
-    
-    setLoggedIn(true);
+
     setUser("");
     setPass("");
   };

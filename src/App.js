@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { hot } from "react-hot-loader/root";
 import PostList from "./PostList";
 import Login from "./Login";
@@ -7,28 +7,36 @@ import SignUp from "./SignUp";
 
 const App = (props) => {
   const { name } = props;
-  const [loggedIn, setLoggedIn] = useState(false);
+
+  //setting token based on local storage
   const [token, setToken] = useState("");
+  //boolean used for sign up button in login component
   const [signInNeeded, setNeedToSignIn] = useState(false);
+
+  useEffect(() => {
+    setToken(!!localStorage.getItem("token"));
+  }, []);
 
   return (
     <>
-      <SignUp
-        loggedIn={loggedIn}
-        setLoggedIn={setLoggedIn}
-        token={token}
-        setToken={setToken}
-        signInNeeded={signInNeeded}
-        setNeedToSignIn={setNeedToSignIn}
-      />
-      <Login
-        loggedIn={loggedIn}
-        setLoggedIn={setLoggedIn}
-        token={token}
-        setToken={setToken}
-        signInNeeded={signInNeeded}
-        setNeedToSignIn={setNeedToSignIn}
-      />
+      {token ? null : (
+        <>
+          <Login
+            token={token}
+            setToken={setToken}
+            signInNeeded={signInNeeded}
+            setNeedToSignIn={setNeedToSignIn}
+          />{" "}
+        </>
+      )}
+      {signInNeeded ? (
+        <SignUp
+          token={token}
+          setToken={setToken}
+          signInNeeded={signInNeeded}
+          setNeedToSignIn={setNeedToSignIn}
+        />
+      ) : null}
       {token ? (
         <>
           {" "}

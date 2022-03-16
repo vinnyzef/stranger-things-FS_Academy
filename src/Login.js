@@ -5,15 +5,9 @@ import SignUp from "./SignUp";
 const Login = (props) => {
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
-  const {
-    loggedIn,
-    setLoggedIn,
-    token,
-    setToken,
-    signInNeeded,
-    setNeedToSignIn,
-  } = props;
+  const { token, setToken, signInNeeded, setNeedToSignIn } = props;
 
+  //moved loginuser to here for fixing a scope issue on line 34 (setting state of token)
   const loginUser = (userObject) => {
     console.log(userObject);
     fetch(
@@ -31,9 +25,13 @@ const Login = (props) => {
       .then((result) => {
         console.log(result);
         console.log(result.success);
+        //if the account exists
         if (result.success === true) {
-          setLoggedIn(true);
-          setNeedToSignIn(false)
+          //changes need to signin so signup component doesnt render
+          setNeedToSignIn(false);
+          //set local storage and token state
+          localStorage.setItem("token", result.data.token);
+          setToken(localStorage.getItem("token"));
         }
       })
       .catch(console.error);
@@ -47,8 +45,10 @@ const Login = (props) => {
         password: pass,
       },
     };
-    setToken(localStorage.getItem("token"));
+
     loginUser(temp);
+    //clears temp object for future inputs
+    temp = {};
     setUser("");
     setPass("");
   };
