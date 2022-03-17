@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { getPosts } from "./api";
 
-const AddPost = () => {
+const AddPost = (props) => {
+  const { posts, setPosts } = props;
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [price, setPrice] = useState("");
@@ -29,11 +31,22 @@ const AddPost = () => {
       }
     )
       .then((response) => response.json())
-      .then((result) => {
+      .then(async (result) => {
+        const post = await getPosts();
+        setPosts(post.data.posts);
         console.log(result);
       })
       .catch(console.error);
+
+    setTitle("");
+    setPrice("");
+    setDesc("");
+    setLoc("");
+    settWillToDeliver("");
   };
+  //   useEffect(() => {
+  //     getPosts(posts);
+  //   }, []);
 
   return (
     <>

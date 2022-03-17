@@ -42,7 +42,6 @@ const App = (props) => {
         <>
           {" "}
           <h1> Welcome, {}</h1> <PostList setToken={setToken} token={token} />{" "}
-          <AddPost />
         </>
       ) : null}
     </>

@@ -16,12 +16,18 @@ const PostList = (props) => {
 
   return (
     <div>
-      <button onClick={() => <AddPost />}>Add Post</button>
+      {/* <button onClick={() => <AddPost setPosts={setPosts} posts={posts} />}>
+        Add Post
+      </button> */}
+      <AddPost setPosts={setPosts} posts={posts} />
 
       {posts.map((post) => (
         <div key={post.id}>
           <h2>{post.title}</h2>
-          <p>{post.body}</p>
+          <p>{post.description}</p>
+          {/* <p>{post.price}</p>
+          <p>{post.location}</p>
+          <p>{post.willDeliver}</p> */}
         </div>
       ))}
       <button
