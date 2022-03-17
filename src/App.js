@@ -4,6 +4,7 @@ import PostList from "./PostList";
 import Login from "./Login";
 import { useToken } from "./api";
 import SignUp from "./SignUp";
+import AddPost from "./AddPost";
 
 const App = (props) => {
   const { name } = props;
@@ -40,7 +41,8 @@ const App = (props) => {
       {token ? (
         <>
           {" "}
-          <h1> Welcome, {}</h1> <PostList />{" "}
+          <h1> Welcome, {}</h1> <PostList setToken={setToken} token={token} />{" "}
+          <AddPost />
         </>
       ) : null}
     </>
