@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { getPosts } from "./api";
+
 
 const AddPost = (props) => {
   const { posts, setPosts } = props;
@@ -17,7 +18,7 @@ const AddPost = (props) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${key}`,
+          'Authorization': `Bearer ${key}`,
         },
         body: JSON.stringify({
           post: {
@@ -44,9 +45,7 @@ const AddPost = (props) => {
     setLoc("");
     settWillToDeliver("");
   };
-  //   useEffect(() => {
-  //     getPosts(posts);
-  //   }, []);
+
 
   return (
     <>

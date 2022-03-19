@@ -22,6 +22,7 @@ const SignUp = (props) => {
       .then((result) => {
         //sets local and token value to a valid token
         localStorage.setItem("token", result.data.token);
+        localStorage.setItem("username", userObject.user.username);
         setToken(localStorage.getItem("token"));
         //makes sign in boolean falso to avoid rendering signup form again
         setNeedToSignIn(false);
@@ -68,3 +69,7 @@ const SignUp = (props) => {
 };
 
 export default SignUp;
+//username: "cats"
+//_id: "6235f4a6893a050017015659"
+//username: "cats"
+//_id: "6235f4a6893a050017015659"
