@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { getPosts } from "./api";
 
-
 const AddPost = (props) => {
   const { posts, setPosts } = props;
   const [title, setTitle] = useState("");
@@ -18,7 +17,7 @@ const AddPost = (props) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          'Authorization': `Bearer ${key}`,
+          Authorization: `Bearer ${key}`,
         },
         body: JSON.stringify({
           post: {
@@ -46,11 +45,16 @@ const AddPost = (props) => {
     settWillToDeliver("");
   };
 
-
   return (
     <>
       {" "}
-      <form>
+      <form
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
         <input
           value={title}
           onChange={(e) => {
@@ -87,7 +91,19 @@ const AddPost = (props) => {
           placeholder="Willing to Deliver (True/False)"
         ></input>
       </form>
-      <button onClick={handleSubmit}> Add new post!</button>
+      <button
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          marginTop: "5px",
+          marginLeft: "46.5%",
+        }}
+        onClick={handleSubmit}
+      >
+        {" "}
+        Add new post!
+      </button>
     </>
   );
 };

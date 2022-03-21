@@ -1,6 +1,5 @@
 import { React, useState } from "react";
 
-
 export const getPosts = async () => {
   const key = localStorage.getItem("token");
   console.log(key);
@@ -9,16 +8,30 @@ export const getPosts = async () => {
   const response = await fetch(url, {
     method: "GET",
     headers: {
-      'Content-Type': 'application/json',
-      'Authorizaton':  `Bearer ${key}` 
-    }
+      "Content-Type": "application/json",
+      Authorizaton: `Bearer ${key}`,
+    },
   });
   const json = await response.json();
   console.log(json);
   return json;
 };
 
-
+export const getSpecificPosts = async (id) => {
+  const key = localStorage.getItem("token");
+  console.log(key);
+  const url = `https://strangers-things.herokuapp.com/api/2112-ftb-et-web-pt/posts/${id}`;
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorizaton: `Bearer ${key}`,
+    },
+  });
+  const json = await response.json();
+  console.log(json);
+  return json;
+};
 
 export const test = async () => {
   const key = localStorage.getItem("token");
@@ -27,32 +40,57 @@ export const test = async () => {
     {
       headers: {
         "Content-Type": "application/json",
-        'Authorization': `Bearer ${key}`,
+        Authorization: `Bearer ${key}`,
       },
     }
   )
     .then((response) => response.json())
     .then((result) => {
-      console.log(result)
-      return result.data
+      console.log(result);
+      return result.data;
     })
     .catch(console.error);
 };
 
- export const handleDelete = async (postId) => {
+export const handleDelete = async (postId) => {
   const token = localStorage.getItem("token");
-    console.log('postId', postId)
-    fetch(`https://strangers-things.herokuapp.com/api/2112-ftb-et-web-pt/posts/${postId}`, {
+  console.log("postId", postId);
+  fetch(
+    `https://strangers-things.herokuapp.com/api/2112-ftb-et-web-pt/posts/${postId}`,
+    {
       method: "DELETE",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
-    }).then(response => response.json())
-      .then(result => {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
+    .then((response) => response.json())
+    .then((result) => {
+      console.log(result);
+    })
+    .catch(console.error);
+};
+export const messages = async (postId, message) => {
+  const token = localStorage.getItem("token");
+  const url = `https://strangers-things.herokuapp.com/api/2112-ftb-et-web-pt/posts/${postId}/messages`;
+  fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      message: {
+        content: message,
+      },
+    }),
+  })
+    .then((response) => response.json())
+    .then((result) => {
+      console.log(result);
+    })
+    .catch(console.error);
+};
 
-        console.log(result);
-      })
-      .catch(console.error);
-      
-    };
+export const handleUpdate = async (postId) => {};
